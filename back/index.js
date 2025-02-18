@@ -1,7 +1,7 @@
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const app = express();
-// const port = 4000;
+const port = 8080;
 
 const cors = require('cors');
 app.use(cors()); 
@@ -42,9 +42,10 @@ app.post('/write', (req, res) => {
   });
 });
 
-// app.listen(port, () => {
-//   console.log(`Server is running on http://localhost:${port}`);
-// });
+
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
+});
 
 // id로 게시글 조회
 app.get('/post-detail/:id', (req, res) => {
