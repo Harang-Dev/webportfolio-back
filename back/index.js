@@ -24,7 +24,11 @@ app.use(express.json());
 
 // 게시글 목록 조회
 app.get('/post-all', (req, res) => {
-  db.all("SELECT * FROM board", [], (err, rows) => {
+  const page = parseInt(req.query.page) || 1; // 기본 페이지는 1
+  const limit = parseInt(req.query.limit) || 10; // 기본 limit은 10
+  const offset = (page - 1) * limit;
+
+  db.all("SELECT * FROM board LIMIT ? OFFSET ?", [limit, offset], (err, rows) => {
     if (err) {
       throw err;
     }
