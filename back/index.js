@@ -1,13 +1,14 @@
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
+const path = require('path');
 const app = express();
-const port = 8080;
 
 const cors = require('cors');
 app.use(cors()); 
 
 // 데이터베이스 연결
-const db = new sqlite3.Database('./db/board.db', (err) => {
+const dbPath = path.join(__dirname, 'db', 'board.db');  // 절대 경로로 설정
+const db = new sqlite3.Database(dbPath, (err) => {
   if (err) {
     console.error(err.message);
   }
@@ -42,7 +43,7 @@ app.post('/write', (req, res) => {
   });
 });
 
-
+const port = 8080;
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
